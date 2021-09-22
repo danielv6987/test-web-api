@@ -13,17 +13,28 @@ jobs:
       - run: dotnet restore
       - run: dotnet build -c Release -o /app/build
       - run: dotnet publish -c Release -o /app/publish
+      - persist_to_workspace: 
+          root: ~/
+          paths:
+            - app
+            - src
+  upload:
+    docker:
+      - image: cimg/python:3.6
+    steps:
+      - attach_workspace: 
+          at: ~/
       - aws-s3/copy:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-region: AWS_REGION
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           from: /app/publish
           to: 's3://vecd-snaplogic/test'
-      - store_artifacts: 
-          path: /app/publish
-          destination: publish
-        
+
 workflows: 
   build-deploy:
     jobs:
       - build
+      - upload:
+          requires:
+            - build
