@@ -47,6 +47,7 @@ workflows:
   build-deploy:
     jobs:
       - build
+      - scan
       - upload:
           requires:
             - build
