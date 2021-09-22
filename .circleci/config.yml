@@ -22,8 +22,8 @@ jobs:
     docker:
       - image: cimg/python:3.6
     steps:
-      - run: apt-get update -y
-      - run: apt-get install -y p7zip-full
+      - run: sudo apt-get update -y
+      - run: sudo apt-get install -y p7zip-full
       - attach_workspace: 
           at: /tmp/workspace
       - run: 7z a kagr-portal-api.zip /tmp/workspace/app/publish/*
