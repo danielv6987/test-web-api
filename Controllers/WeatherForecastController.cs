@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -25,6 +26,9 @@ namespace TestWebApi.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            Thread.CurrentThread.Suspend(); // Noncompliant
+            Thread.CurrentThread.Resume(); // Noncompliant
+            
             int i = 0;
             while (true)
             {
