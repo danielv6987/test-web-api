@@ -27,8 +27,9 @@ jobs:
       - checkout
       - run: apt-get update -y
       - run: apt-get install -y openjdk-11-jre-headless
+      - run: dotnet restore
       - run: dotnet tool install --global dotnet-sonarscanner
-      - run: dotnet restore 
+      - run: dotnet tool list -g
       - run: dotnet sonarscanner begin /o:'$SONAR_ORG_KEY' /k:'$SONAR_PROJECT_KEY' /d:sonar.host.url='$SONAR_HOST_URL' /d:sonar.login='$SONAR_TOKEN' /d:sonar.branch.name='$CIRCLE_BRANCH'
       - run: dotnet build
       - run: dotnet sonarscanner end /d:sonar.login='$SONAR_TOKEN'
