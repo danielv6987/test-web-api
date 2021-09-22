@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
   aws-s3: circleci/aws-s3@3.0
-  sonarcloud: sonarsource/sonarcloud@1.0.2
 
 jobs:
   build:
@@ -21,11 +20,18 @@ jobs:
             - src
   
   scan:
+    working_directory: /src
     docker:
-      - image: 'node:latest'
+      - image: mcr.microsoft.com/dotnet/sdk:5.0
     steps:
       - checkout
-      - sonarcloud/scan
+      - run: sudo apt-get update -y
+      - run: apt-get install -y openjdk-11-jre-headless
+      - run: dotnet tool install --global dotnet-sonarscanner
+      - run: dotnet restore 
+      - run: dotnet sonarscanner begin /o:'$SONAR_ORG_KEY' /k:'$SONAR_PROJECT_KEY' /d:sonar.host.url='$SONAR_HOST_URL' /d:sonar.login='$SONAR_TOKEN' /d:sonar.branch.name='$CIRCLE_BRANCH'
+      - run: dotnet build
+      - run: dotnet sonarscanner end /d:sonar.login='$SONAR_TOKEN'
   
   upload:
     docker:
