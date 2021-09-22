@@ -9,3 +9,8 @@ jobs:
       - checkout
       - run: dotnet restore
       - run: dotnet build
+        
+workflows: 
+  build-deploy:
+    jobs:
+      - build
