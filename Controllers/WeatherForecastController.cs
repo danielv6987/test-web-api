@@ -37,8 +37,126 @@ namespace TestWebApi.Controllers
                 i++;
             }
             
-            Thread.CurrentThread.Suspend(); // Noncompliant
-            Thread.CurrentThread.Resume(); // Noncompliant
+            int i = 0;
+            while (true)
+            {
+                if (i == 10)
+                {
+                    break;      // Non-Compliant
+                }
+
+                Console.WriteLine(i);
+                i++;
+            }
+            
+            int i = 0;
+            while (true)
+            {
+                if (i == 10)
+                {
+                    break;      // Non-Compliant
+                }
+
+                Console.WriteLine(i);
+                i++;
+            }
+            
+            int i = 0;
+            while (true)
+            {
+                if (i == 10)
+                {
+                    break;      // Non-Compliant
+                }
+
+                Console.WriteLine(i);
+                i++;
+            }
+            
+            int i = 0;
+            while (true)
+            {
+                if (i == 10)
+                {
+                    break;      // Non-Compliant
+                }
+
+                Console.WriteLine(i);
+                i++;
+            }
+            
+            int i = 0;
+            while (true)
+            {
+                if (i == 10)
+                {
+                    break;      // Non-Compliant
+                }
+
+                Console.WriteLine(i);
+                i++;
+            }
+            
+            int i = 0;
+            while (true)
+            {
+                if (i == 10)
+                {
+                    break;      // Non-Compliant
+                }
+
+                Console.WriteLine(i);
+                i++;
+            }
+            
+            int i = 0;
+            while (true)
+            {
+                if (i == 10)
+                {
+                    break;      // Non-Compliant
+                }
+
+                Console.WriteLine(i);
+                i++;
+            }
+            
+            int i = 0;
+            while (true)
+            {
+                if (i == 10)
+                {
+                    break;      // Non-Compliant
+                }
+
+                Console.WriteLine(i);
+                i++;
+            }
+            
+            int i = 0;
+            while (true)
+            {
+                if (i == 10)
+                {
+                    break;      // Non-Compliant
+                }
+
+                Console.WriteLine(i);
+                i++;
+            }
+            
+            int i = 0;
+            while (true)
+            {
+                if (i == 10)
+                {
+                    break;      // Non-Compliant
+                }
+
+                Console.WriteLine(i);
+                i++;
+            }
+            
             
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
