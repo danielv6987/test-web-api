@@ -10,6 +10,9 @@ jobs:
       - run: dotnet restore
       - run: dotnet build -c Release -o /app/build
       - run: dotnet publish -c Release -o /app/publish
+      - store_artifacts: 
+          path: /app/publish
+          destination: publish
         
 workflows: 
   build-deploy:
