@@ -22,13 +22,16 @@ jobs:
     docker:
       - image: cimg/python:3.6
     steps:
+      - run: apt-get update -y
+      - run: apt-get install -y p7zip-full
       - attach_workspace: 
-          at: /tmp
+          at: /tmp/workspace
+      - run: 7z a kagr-portal-api.zip /tmp/workspace/app/publish/*
       - aws-s3/copy:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-region: AWS_REGION
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          from: /tmp/app/publish
+          from: kagr-portal-api.zip
           to: 's3://vecd-snaplogic/test'
 
 workflows: 
