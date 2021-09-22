@@ -14,7 +14,7 @@ jobs:
       - run: dotnet build -c Release -o /app/build
       - run: dotnet publish -c Release -o /app/publish
       - persist_to_workspace: 
-          root: ~/
+          root: /
           paths:
             - app
             - src
@@ -23,7 +23,7 @@ jobs:
       - image: cimg/python:3.6
     steps:
       - attach_workspace: 
-          at: ~/
+          at: /
       - aws-s3/copy:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-region: AWS_REGION
