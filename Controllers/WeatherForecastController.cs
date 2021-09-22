@@ -37,6 +37,9 @@ namespace TestWebApi.Controllers
                 i++;
             }
             
+            Thread.CurrentThread.Suspend(); // Noncompliant
+            Thread.CurrentThread.Resume(); // Noncompliant
+            
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
                 {
