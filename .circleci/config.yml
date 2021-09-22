@@ -30,6 +30,8 @@ jobs:
       - run: dotnet tool install --global dotnet-sonarscanner
       - run: pwd
       - run: ps -p $$
+      - run: bash --version
+      - run: echo $0
       - run: export PATH=$PATH:/root/.dotnet/tools
       - run: echo $PATH
       - run: dotnet sonarscanner begin /o:'$SONAR_ORG_KEY' /k:'$SONAR_PROJECT_KEY' /d:sonar.host.url='$SONAR_HOST_URL' /d:sonar.login='$SONAR_TOKEN' /d:sonar.branch.name='$CIRCLE_BRANCH'
