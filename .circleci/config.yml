@@ -32,7 +32,7 @@ jobs:
           aws-region: AWS_REGION
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           from: kagr-portal-api.zip
-          to: 's3://vecd-snaplogic/test'
+          to: 's3://vecd-snaplogic/test/'
 
 workflows: 
   build-deploy:
