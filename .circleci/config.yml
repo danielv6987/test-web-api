@@ -8,7 +8,8 @@ jobs:
     steps:
       - checkout
       - run: dotnet restore
-      - run: dotnet publish
+      - run: dotnet build -c Release -o /app/build
+      - run: dotnet publish -c Release -o /app/publish
         
 workflows: 
   build-deploy:
