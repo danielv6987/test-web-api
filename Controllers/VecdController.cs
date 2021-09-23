@@ -10,12 +10,6 @@ namespace TestWebApi.Controllers
     [Route("[controller]")]
     public class VecdController : ControllerBase
     {
-        // GET
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracings", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<VecdController> _logger;
 
         public VecdController(ILogger<VecdController> logger)
@@ -26,6 +20,7 @@ namespace TestWebApi.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            _logger.LogInformation("testing");
             int i = 0;
             while (true)
             {
