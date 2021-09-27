@@ -33,7 +33,7 @@ jobs:
       - run: dotnet restore
       - run: echo 'export KAGR_VERSION=$(xmllint --xpath "string(//Version)" TestWebApi.csproj)' >> $BASH_ENV
       - run: echo $KAGR_VERSION
-      - run: dotnet sonarscanner begin /o:"$SONAR_ORG_KEY" /k:"$SONAR_PROJECT_KEY" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.branch.name="$CIRCLE_BRANCH" /d:sonar.projectVersion="$KAGR_VERSION"
+      - run: dotnet sonarscanner begin /o:"$SONAR_ORG_KEY" /k:"$SONAR_PROJECT_KEY" /v:"$KAGR_VERSION" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.branch.name="$CIRCLE_BRANCH" 
       - run: dotnet build
       - run: dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
   
