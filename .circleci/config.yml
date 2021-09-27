@@ -27,6 +27,7 @@ jobs:
       - checkout
       - run: apt-get update -y
       - run: apt-get install -y openjdk-11-jre-headless
+      - run: apt-get install libxml2-utils
       - run: dotnet tool install --global dotnet-sonarscanner
       - run: echo 'export MY_ENV_VAR="FOO"' >> $BASH_ENV
       - run: dotnet restore
