@@ -28,7 +28,8 @@ jobs:
       - run: apt-get install -y openjdk-11-jre-headless
       - run: dotnet tool install --global dotnet-sonarscanner
       - run: dotnet restore
-      - run: export PATH=$PATH:/root/.dotnet/tools && dotnet sonarscanner begin /o:"$SONAR_ORG_KEY" /k:"$SONAR_PROJECT_KEY" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.branch.name="$CIRCLE_BRANCH" -d:sonar.qualitygate.wait=true
+      - run: export PATH=$PATH:/root/.dotnet/tools
+      - run: export PATH=$PATH:/root/.dotnet/tools && dotnet sonarscanner begin /o:"$SONAR_ORG_KEY" /k:"$SONAR_PROJECT_KEY" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.branch.name="$CIRCLE_BRANCH"
       - run: dotnet build
       - run: export PATH=$PATH:/root/.dotnet/tools && dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
   
@@ -58,3 +59,7 @@ workflows:
       - upload:
           requires:
             - scan
+          filters: 
+            branches:
+              only: 
+                - master
