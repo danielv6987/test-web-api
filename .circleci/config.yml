@@ -20,6 +20,7 @@ jobs:
             - src
   
   scan:
+    working_directory: /src
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:5.0
     steps:
@@ -27,8 +28,13 @@ jobs:
       - run: apt-get update -y
       - run: apt-get install -y openjdk-11-jre-headless
       - run: dotnet tool install --global dotnet-sonarscanner
+      - run: echo 'export MY_ENV_VAR="FOO"' >> $BASH_ENV
       - run: dotnet restore
       - run: export PATH=$PATH:/root/.dotnet/tools
+      - run: echo $MY_ENV_VAR
+      - run: test=$(xmllint --xpath "string(//Version)" TestWebApi.csproj)
+      - run: echo $test
+      - run: echo $(xmllint --xpath "string(//Version)" TestWebApi.csproj)
       - run: export PATH=$PATH:/root/.dotnet/tools && dotnet sonarscanner begin /o:"$SONAR_ORG_KEY" /k:"$SONAR_PROJECT_KEY" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.branch.name="$CIRCLE_BRANCH"
       - run: dotnet build
       - run: export PATH=$PATH:/root/.dotnet/tools && dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
