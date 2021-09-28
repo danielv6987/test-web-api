@@ -11,13 +11,13 @@ jobs:
     steps:
       - checkout
       - run: dotnet restore
-      - run: dotnet build -c Release -o /app/build
+      - run: dotnet nuget locals all -l
+      - run: dotnet build -c Release
       - run: dotnet publish -c Release -o /app/publish
       - persist_to_workspace: 
           root: /
           paths:
-            - app
-            - src
+            - app/publish
   
   scan:
     working_directory: /src
@@ -32,7 +32,6 @@ jobs:
       - run: echo 'export PATH=$PATH:/root/.dotnet/tools' >> $BASH_ENV
       - run: dotnet restore
       - run: echo 'export KAGR_VERSION=$(xmllint --xpath "string(//Version)" TestWebApi.csproj)' >> $BASH_ENV
-      - run: echo $KAGR_VERSION
       - run: dotnet sonarscanner begin /o:"$SONAR_ORG_KEY" /k:"$SONAR_PROJECT_KEY" /v:"$KAGR_VERSION" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.branch.name="$CIRCLE_BRANCH" 
       - run: dotnet build
       - run: dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
