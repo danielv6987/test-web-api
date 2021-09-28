@@ -10,7 +10,14 @@ jobs:
       - image: mcr.microsoft.com/dotnet/sdk:5.0
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - dotnet-packages-v1-{{ checksum "TestWebApi.csproj" }}
       - run: dotnet restore
+      - save_cache:
+          paths:
+            - /root/.nuget/packages
+          key: dotnet-packages-v1-{{ checksum "TestWebApi.csproj" }}
       - run: dotnet nuget locals all -l
       - run: dotnet build -c Release
       - run: dotnet publish -c Release -o /app/publish
@@ -30,7 +37,14 @@ jobs:
       - run: apt-get install libxml2-utils
       - run: dotnet tool install --global dotnet-sonarscanner
       - run: echo 'export PATH=$PATH:/root/.dotnet/tools' >> $BASH_ENV
+      - restore_cache:
+          keys:
+            - dotnet-packages-v1-{{ checksum "TestWebApi.csproj" }}
       - run: dotnet restore
+      - save_cache:
+          paths:
+            - /root/.nuget/packages
+          key: dotnet-packages-v1-{{ checksum "TestWebApi.csproj" }}
       - run: echo 'export KAGR_VERSION=$(xmllint --xpath "string(//Version)" TestWebApi.csproj)' >> $BASH_ENV
       - run: dotnet sonarscanner begin /o:"$SONAR_ORG_KEY" /k:"$SONAR_PROJECT_KEY" /v:"$KAGR_VERSION" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.branch.name="$CIRCLE_BRANCH" 
       - run: dotnet build
