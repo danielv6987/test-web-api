@@ -76,7 +76,6 @@ jobs:
       - snyk/scan:
           fail-on-issues: false
           additional-arguments: '--remote-repo-url="${CIRCLE_PROJECT_REPONAME}"'
-          command: test --file=TestWebApi.sln
           organization: '${SNYK_ORG}'
           project: 'testingbranch'
           
