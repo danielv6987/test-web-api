@@ -63,8 +63,6 @@ jobs:
     steps:
       - run: apt-get update
       - run: apt-get install sudo
-      - run: pwd
-      - run: ls
       - attach_workspace:
           at: /
       - restore_cache:
@@ -75,14 +73,12 @@ jobs:
           paths:
             - /root/.nuget/packages
           key: dotnet-packages-v1-{{ checksum "TestWebApi.csproj" }}
-      - run: pwd
-      - run: ls
       - snyk/scan:
           fail-on-issues: false
           additional-arguments: '--remote-repo-url="${CIRCLE_PROJECT_REPONAME}"'
           command: test --file=TestWebApi.sln
           organization: '${SNYK_ORG}'
-          project: '${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}'
+          project: 'testingbranch'
           
   upload:
     docker:
