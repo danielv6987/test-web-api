@@ -61,6 +61,14 @@ jobs:
       - image: cimg/node:12.16
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - dotnet-packages-v1-{{ checksum "TestWebApi.csproj" }}
+      - run: dotnet restore
+      - save_cache:
+          paths:
+            - /root/.nuget/packages
+          key: dotnet-packages-v1-{{ checksum "TestWebApi.csproj" }}
       - snyk/scan:
           fail-on-issues: false
           additional-arguments: '--remote-repo-url="${CIRCLE_PROJECT_REPONAME}"'
