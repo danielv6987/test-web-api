@@ -24,13 +24,19 @@ jobs:
           root: /
           paths:
             - app/publish
+            - src
   
   scan:
     working_directory: /src
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:5.0
     steps:
-      - checkout
+      - run: pwd
+      - run: ls
+      - attach_workspace:
+          at: /
+      - run: pwd
+      - run: ls
       - run: apt-get update -y
       - run: apt-get install -y openjdk-11-jre-headless
       - run: apt-get install libxml2-utils
@@ -72,10 +78,3 @@ workflows:
       - scan:
           requires:
             - build
-      - upload:
-          requires:
-            - scan
-          filters: 
-            branches:
-              only: 
-                - master
