@@ -63,12 +63,12 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - dotnet-packages-v1-{{ checksum "TestWebApi.csproj" }}
+            - dotnet-packages-v2-{{ checksum "TestWebApi.csproj" }}
       - run: dotnet restore
       - save_cache:
           paths:
             - /root/.nuget/packages
-          key: dotnet-packages-v1-{{ checksum "TestWebApi.csproj" }}
+          key: dotnet-packages-v2-{{ checksum "TestWebApi.csproj" }}
       - snyk/scan:
           fail-on-issues: false
           additional-arguments: '--remote-repo-url="${CIRCLE_PROJECT_REPONAME}"'
