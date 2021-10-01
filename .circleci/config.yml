@@ -58,7 +58,7 @@ jobs:
         
   secure:
     docker:
-      - image: cimg/node:12.16
+      - image: mcr.microsoft.com/dotnet/sdk:5.0
     steps:
       - checkout
       - restore_cache:
