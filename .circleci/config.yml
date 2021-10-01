@@ -63,14 +63,6 @@ jobs:
       - run: apt-get update
       - run: apt-get install sudo
       - checkout
-      - restore_cache:
-          keys:
-            - dotnet-packages-v2-{{ checksum "TestWebApi.csproj" }}
-      - run: dotnet restore
-      - save_cache:
-          paths:
-            - /root/.nuget/packages
-          key: dotnet-packages-v2-{{ checksum "TestWebApi.csproj" }}
       - snyk/scan:
           fail-on-issues: false
           additional-arguments: '--remote-repo-url="${CIRCLE_PROJECT_REPONAME}"'
