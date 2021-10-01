@@ -60,6 +60,8 @@ jobs:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:5.0
     steps:
+      - run: apt-get update
+      - run: apt-get install sudo
       - checkout
       - restore_cache:
           keys:
