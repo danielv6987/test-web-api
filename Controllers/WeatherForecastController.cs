@@ -21,7 +21,7 @@ namespace TestWebApi.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            _logger.LogInformation("information test");
+            _logger.LogInformation("information test test");
             int i = 0;
             while (true)
             {
