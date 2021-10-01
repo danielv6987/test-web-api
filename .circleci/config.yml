@@ -67,7 +67,7 @@ jobs:
       - run: dotnet build
       - snyk/scan:
           fail-on-issues: false
-          additional-arguments: '--remote-repo-url="${CIRCLE_PROJECT_REPONAME}" --project-name="master" --org="${SNYK_ORG}"'
+          additional-arguments: '--remote-repo-url="${CIRCLE_PROJECT_REPONAME}" --project-name="develop" --org="${SNYK_ORG}"'
           command: test TestWebApi.sln
           
   upload:
