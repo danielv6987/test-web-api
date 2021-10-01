@@ -66,9 +66,8 @@ jobs:
       - run: dotnet restore
       - snyk/scan:
           fail-on-issues: false
-          additional-arguments: '--remote-repo-url="${CIRCLE_PROJECT_REPONAME}"'
+          additional-arguments: '--remote-repo-url="${CIRCLE_PROJECT_REPONAME}" --project-name="danny"'
           organization: '${SNYK_ORG}'
-          project: testingbranch
           
   upload:
     docker:
