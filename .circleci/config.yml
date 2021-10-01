@@ -68,6 +68,7 @@ jobs:
       - snyk/scan:
           fail-on-issues: false
           additional-arguments: '--remote-repo-url="${CIRCLE_PROJECT_REPONAME}" --project-name="master" --org="${SNYK_ORG}"'
+          command: test TestWebApi.sln
           
   upload:
     docker:
