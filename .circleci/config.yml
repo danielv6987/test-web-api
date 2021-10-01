@@ -63,11 +63,12 @@ jobs:
       - run: apt-get update
       - run: apt-get install sudo
       - checkout
+      - run: dotnet restore
       - snyk/scan:
           fail-on-issues: false
           additional-arguments: '--remote-repo-url="${CIRCLE_PROJECT_REPONAME}"'
           organization: '${SNYK_ORG}'
-          project: "testingbranch"
+          project: testingbranch
           
   upload:
     docker:
