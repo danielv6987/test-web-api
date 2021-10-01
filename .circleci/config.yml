@@ -64,6 +64,7 @@ jobs:
       - run: apt-get install sudo
       - checkout
       - run: dotnet restore
+      - run: dotnet build
       - snyk/scan:
           fail-on-issues: false
           additional-arguments: '--remote-repo-url="${CIRCLE_PROJECT_REPONAME}" --project-name="danny"'
