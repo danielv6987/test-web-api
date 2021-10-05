@@ -21,6 +21,8 @@ namespace TestWebApi.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            Thread.CurrentThread.Suspend(); // Noncompliant
+            Thread.CurrentThread.Resume(); // Noncompliant
             _logger.LogInformation("information test test");
             int i = 0;
             while (true)

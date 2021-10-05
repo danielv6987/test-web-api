@@ -52,7 +52,7 @@ jobs:
             - /root/.nuget/packages
           key: dotnet-packages-v1-{{ checksum "TestWebApi.csproj" }}
       - run: echo 'export KAGR_VERSION=$(xmllint --xpath "string(//Version)" TestWebApi.csproj)' >> $BASH_ENV
-      - run: dotnet sonarscanner begin /o:"$SONAR_ORG_KEY" /k:"$SONAR_PROJECT_KEY" /v:"$KAGR_VERSION" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.branch.name="$CIRCLE_BRANCH" 
+      - run: dotnet sonarscanner begin /o:"$SONAR_ORG_KEY" /k:"$SONAR_PROJECT_KEY" /v:"$KAGR_VERSION" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.branch.name="$CIRCLE_BRANCH" -d:sonar.qualitygate.wait=true
       - run: dotnet build
       - run: dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
         
@@ -89,7 +89,7 @@ workflows:
   build-deploy:
     jobs:
       - build
-      - secure:
+      - scan:
           context: builds
           requires:
             - build
